@@ -26,9 +26,4 @@ public class TodoService {
         return repository.save(todo);
     }
 
-    public void deleteTodo(int id) {
-        Todo todo = repository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Todo not found"));
-        repository.delete(todo);
-    }
 }
