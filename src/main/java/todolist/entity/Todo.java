@@ -4,10 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
-<<<<<<< HEAD
-
-=======
->>>>>>> feature/todo-repository
 import java.time.Instant;
 
 @AllArgsConstructor
@@ -22,9 +18,4 @@ public class Todo {
     private final Instant startDateTime;
     private final Instant endDateTime;
     private final boolean done;
-<<<<<<< HEAD
-
-
-=======
->>>>>>> feature/todo-repository
 }
