@@ -23,13 +23,13 @@ public class TodoController {
         return service.getAll();
     }
 
-    @PostMapping
-    public Todo create(@RequestBody Todo todo){
-        return service.postTodo(todo);
-    }
-    @DeleteMapping("/{id}")
-    public void delete(@PathVariable int id) {
-        service.deleteTodo(id);
+    @GetMapping("/{id}")
+    public Todo getTodoById(@PathVariable int id) {
+        return service.getTodoByid();
     }
 
+    @PostMapping
+    public Todo create(@RequestBody Todo todo) {
+        return service.postTodo(todo);
+    }
 }
