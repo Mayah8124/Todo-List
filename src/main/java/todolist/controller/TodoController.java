@@ -5,17 +5,31 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import todolist.entity.Todo;
 import todolist.service.TodoService;
+import org.springframework.web.bind.annotation.*;
 
-import javax.management.openmbean.CompositeData;
 import java.util.List;
 
 @RestController
+@RequestMapping("/todos")
 public class TodoController {
-    private TodoService service = new TodoService();
+    private final TodoService service;
 
-    @GetMapping("/todos")
-    public List<Todo> getAllTodos(){
+    public TodoController(TodoService service) {
+        this.service = service;
+    }
+
+    @GetMapping
+    public List<Todo> getAllTodos() {
         return service.getAll();
     }
 
+    @GetMapping("/{id}")
+    public Todo getTodoById(@PathVariable int id) {
+        return service.getTodoByid();
+    }
+
+    @PostMapping
+    public Todo create(@RequestBody Todo todo) {
+        return service.postTodo(todo);
+    }
 }
