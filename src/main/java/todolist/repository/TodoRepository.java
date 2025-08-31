@@ -1,8 +1,14 @@
 package todolist.repository;
 
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import todolist.entity.Todo;
 import org.springframework.stereotype.Repository;
+
+import java.sql.PreparedStatement;
+import java.sql.Statement;
+import java.sql.Timestamp;
 import java.util.List;
 
 @Repository
@@ -42,10 +48,27 @@ public class TodoRepository {
         );
     }
 
-    public int save(Todo todo) {
-        String sql = "INSERT INTO todos(*) VALUES (?, ?)";
-        return jdbcTemplate.update(
-                sql, todo.getTitle(), todo.getId(), todo.getDescription(), todo.getStartDateTime(), todo.getEndDateTime() , todo.isDone()
+    public Todo save(Todo todo) {
+        String sql = "INSERT INTO todos (tittle ,description, start_date_time , end_date_time , is_done) VALUES (?, ?)";
+
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+
+        jdbcTemplate.update(connection -> {
+            PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            ps.setString(1, todo.getDescription());
+            ps.setTimestamp(2, Timestamp.from(todo.getStartDateTime())); // conversion Instant -> Timestamp
+            return ps;
+        }, keyHolder);
+
+        int id = Math.toIntExact(keyHolder.getKey().longValue());
+
+        return new Todo(
+                id,
+                todo.getTitle(),
+                todo.getDescription(),
+                todo.getStartDateTime(),
+                todo.getEndDateTime(),
+                todo.isDone()
         );
     }
 }
