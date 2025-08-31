@@ -25,7 +25,7 @@ public class TodoController {
 
     @GetMapping("/{id}")
     public Todo getTodoById(@PathVariable int id) {
-        return service.getTodoByid();
+        return service.getTodoById(id);
     }
 
     @PostMapping
