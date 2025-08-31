@@ -4,21 +4,32 @@ import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
-
+import jakarta.persistence.*;
+import lombok.NoArgsConstructor;
 import java.time.Instant;
 
+@Entity
+@Table(name = "todo")
 @AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @EqualsAndHashCode
 @ToString
-
 public class Todo {
-    private final int id;
-    private final String title;
-    private final String description;
-    private final Instant startDateTime;
-    private final Instant endDateTime;
-    private final boolean done;
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
 
+    private String title;
+
+    private String description;
+
+    @Column(name = "start_datetime")
+    private Instant startDatetime;
+
+    @Column(name = "end_datetime")
+    private Instant endDatetime;
+
+    private boolean done;
 }
