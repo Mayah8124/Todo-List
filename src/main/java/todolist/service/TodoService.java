@@ -1,18 +1,31 @@
 package todolist.service;
 
-import todolist.entity.Todo;
 import java.util.List;
 import org.springframework.stereotype.Service;
-import todolist.repository.TodoRepository;
+import todolist.dao.TodoDAOImpl;
+import todolist.entity.Todo;
 
 @Service
 public class TodoService {
+  private TodoDAOImpl todoDAO;
 
-    private final TodoRepository repository;
+  public TodoService() {
+    this.todoDAO = new TodoDAOImpl();
+  }
 
-    public TodoService(TodoRepository repository) {
-        this.repository = repository;
+  public List<Todo> getAll() {
+    return todoDAO.findAll();
+  }
+
+  public Todo getTodoById(int id) {
+    return todoDAO.findById(id);
+  }
+
+  public void postTodo(Todo todo) {
+    if (todo.getTitle() == null || todo.getTitle().isEmpty()) {
+      throw new IllegalArgumentException("Title field cannot be empty");
     }
+<<<<<<< HEAD
 
     public List<Todo> getAll() {
         return repository.findAll();
@@ -26,4 +39,8 @@ public class TodoService {
         return repository.create(todo);
     }
 
+=======
+    todoDAO.save(todo);
+  }
+>>>>>>> feb58a87fb317fa689b1c3ffce8df4ec6f241513
 }
