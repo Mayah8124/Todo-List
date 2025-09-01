@@ -4,6 +4,8 @@ import java.sql.*;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.server.ResponseStatusException;
 import todolist.entity.Todo;
 
 public class TodoDAOImpl implements TodoDAO {
@@ -33,6 +35,9 @@ public class TodoDAOImpl implements TodoDAO {
       try (ResultSet rs = stmt.executeQuery()) {
         if (rs.next()) {
           return mapRow(rs);
+        } else {
+          throw new ResponseStatusException(
+              HttpStatus.NOT_FOUND, "Todo with id " + id + " not found");
         }
       }
     } catch (SQLException e) {
