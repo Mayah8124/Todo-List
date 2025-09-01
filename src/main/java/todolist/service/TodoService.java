@@ -3,7 +3,6 @@ package todolist.service;
 import todolist.entity.Todo;
 import java.util.List;
 import org.springframework.stereotype.Service;
-import todolist.dao.TodoRepository;
 
 @Service
 public class TodoService {
