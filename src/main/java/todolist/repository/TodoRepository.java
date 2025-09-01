@@ -48,15 +48,15 @@ public class TodoRepository {
         );
     }
 
-    public Todo save(Todo todo) {
-        String sql = "INSERT INTO todos (tittle ,description, start_date_time , end_date_time , is_done) VALUES (?, ?)";
+    public Todo create(Todo todo) {
+        String sql = "INSERT INTO todos (tittle ,description, start_date_time , end_date_time , is_done) VALUES (?, ? , ? , ? , ?)";
 
         KeyHolder keyHolder = new GeneratedKeyHolder();
 
         jdbcTemplate.update(connection -> {
             PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, todo.getDescription());
-            ps.setTimestamp(2, Timestamp.from(todo.getStartDateTime())); // conversion Instant -> Timestamp
+            ps.setTimestamp(2, Timestamp.from(todo.getStartDateTime()));
             return ps;
         }, keyHolder);
 
