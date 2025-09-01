@@ -43,7 +43,6 @@ public class TodoDAOImpl implements TodoDAO {
     } catch (SQLException e) {
       throw new RuntimeException("Error finding the todo with id of " + id);
     }
-    return null;
   }
 
   @Override
