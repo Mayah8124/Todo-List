@@ -9,6 +9,10 @@ import todolist.entity.Todo;
 public class TodoService {
   private TodoDAOImpl todoDAO;
 
+  public TodoService() {
+    this.todoDAO = new TodoDAOImpl();
+  }
+
   public List<Todo> getAll() {
     return todoDAO.findAll();
   }
@@ -18,8 +22,8 @@ public class TodoService {
   }
 
   public void postTodo(Todo todo) {
-    if(todo.getTitle() == null || todo.getTitle().isEmpty()){
-        throw new IllegalArgumentException("Title field cannot be empty");
+    if (todo.getTitle() == null || todo.getTitle().isEmpty()) {
+      throw new IllegalArgumentException("Title field cannot be empty");
     }
     todoDAO.save(todo);
   }
